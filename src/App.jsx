@@ -12,9 +12,12 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 // import ApiTestDashboard from './ApiTestDashboard';
-import LandingPage from "./pages/LandingPage";
-import Wallet from "./pages/Wallet";
-import Kiosk from "./pages/Kiosk";
+import {
+  LandingPage,
+  Wallet,
+  KioskDashboard as Kiosk,
+  EarthWalletProjectPage,
+} from "./pages/index";
 import "./index.css";
 import ApiTestDashboard from "./pages/ApiTestDashboard";
 // Firebase configuration - replace with your actual config
@@ -173,6 +176,7 @@ const App = () => {
           <Route path="/kiosk" element={<Kiosk />} />
           <Route path="/test" element={<ApiTestDashboard user={user} />} />
           <Route path="/wallet" element={<Wallet user={user} />} />
+          <Route path="/project-page" element={<EarthWalletProjectPage />} />
         </Routes>
       </Router>
       {/* Authentication Modal */}

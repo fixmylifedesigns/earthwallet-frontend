@@ -4,50 +4,50 @@ const LandingPage = ({ openAuthModal, user }) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50  w-full">
       {/* Hero Section */}
-      <section className="relative overflow-hidden w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Turn Recycling Into
-              <span className="text-green-600 block">Real Rewards</span>
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Deposit plastic and aluminum items, earn instant cash rewards, and
-              help build a sustainable future. EarthWallet makes recycling
-              profitable and effortless.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {user ? (
-                <Link
-                  to="/test"
-                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-semibold"
-                >
-                  Open Dashboard
-                </Link>
-              ) : (
-                <>
-                  <button
-                    onClick={() => openAuthModal("signup")}
-                    className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-semibold"
-                  >
-                    Get Started Free
-                  </button>
-                  <button
-                    onClick={() => openAuthModal("login")}
-                    className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-lg text-lg font-semibold"
-                  >
-                    Sign In
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+ <section className="relative overflow-hidden w-full">
+  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div className="text-center">
+      <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+        Turn Recycling Into
+        <span className="text-green-600 block">Real Rewards</span>
+      </h1>
+      <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+        Deposit plastic and aluminum items, earn instant cash rewards, and
+        help build a sustainable future. EarthWallet makes recycling
+        profitable and effortless.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        {user ? (
+          <Link
+            to="/test"
+            className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-semibold"
+          >
+            Open Dashboard
+          </Link>
+        ) : (
+          <>
+            <button
+              onClick={() => openAuthModal("signup")}
+              className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-semibold"
+            >
+              Get Started Free
+            </button>
+            <button
+              onClick={() => openAuthModal("login")}
+              className="border-2 border-green-600 text-green-600 hover:bg-green-600 hover:text-white px-8 py-3 rounded-lg text-lg font-semibold"
+            >
+              Sign In
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  </div>
 
-        {/* Decorative elements */}
-        <div className="absolute top-0 right-0 -mt-4 -mr-4 w-72 h-72 bg-green-200 rounded-full opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-0 left-0 -mb-4 -ml-4 w-96 h-96 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
-      </section>
+  {/* Decorative elements - behind content */}
+  <div className="absolute top-0 right-0 -mt-4 -mr-4 w-72 h-72 bg-green-200 rounded-full opacity-20 animate-pulse z-0"></div>
+  <div className="absolute bottom-0 left-0 -mb-4 -ml-4 w-96 h-96 bg-blue-200 rounded-full opacity-20 animate-pulse z-0"></div>
+</section>
 
       {/* Features Section */}
       <section id="features" className="py-20 bg-white">
