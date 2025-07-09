@@ -224,7 +224,7 @@ const WalletPage = ({ user }) => {
                   </div>
                   <button
                     onClick={() => setShowKioskId(!showKioskId)}
-                    className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                    className="text-blue-600 hover:text-blue-800 text-sm font-medium m-2 "
                   >
                     {showKioskId ? "Hide" : "Show"} ID
                   </button>
@@ -272,7 +272,7 @@ const WalletPage = ({ user }) => {
                 className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === "deposits"
                     ? "border-blue-600 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700"
+                    : "border-transparent text-white hover:text-gray-700"
                 }`}
               >
                 Deposits
@@ -282,7 +282,7 @@ const WalletPage = ({ user }) => {
                 className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === "withdrawals"
                     ? "border-blue-600 text-blue-600"
-                    : "border-transparent text-gray-500 hover:text-gray-700"
+                    : "border-transparent text-white hover:text-gray-700"
                 }`}
               >
                 Withdrawals

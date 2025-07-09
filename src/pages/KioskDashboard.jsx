@@ -2,19 +2,60 @@ import React, { useState, useEffect } from 'react';
 
 const KioskDashboard = () => {
   // State management
-  const [currentScreen, setCurrentScreen] = useState('welcome'); // welcome, enterKioskId, selectMaterial, counting, result
+  const [currentScreen, setCurrentScreen] = useState('welcome');
   const [kioskId, setKioskId] = useState('');
   const [selectedMaterial, setSelectedMaterial] = useState('');
   const [itemCount, setItemCount] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
+  const [isElectron, setIsElectron] = useState(false);
 
   // API configuration
-  const apiBaseUrl = "https://earthwalletapi.onrender.com";
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "https://earthwalletapi.onrender.com";
 
   // Material rates
   const MATERIAL_RATES = { plastic: 5, aluminum: 10 };
+
+  // Check if running in electron
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.electronAPI) {
+      setIsElectron(true);
+    }
+  }, []);
+
+  // Disable context menu and certain shortcuts in electron
+  useEffect(() => {
+    if (isElectron) {
+      const handleContextMenu = (e) => {
+        e.preventDefault();
+        return false;
+      };
+
+      const handleKeyDown = (e) => {
+        // Disable common shortcuts that might interfere with kiosk mode
+        if (
+          e.key === 'F12' ||
+          e.key === 'F11' ||
+          (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+          (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+          (e.ctrlKey && e.key === 'r') ||
+          e.key === 'F5'
+        ) {
+          e.preventDefault();
+          return false;
+        }
+      };
+
+      document.addEventListener('contextmenu', handleContextMenu);
+      document.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.removeEventListener('contextmenu', handleContextMenu);
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [isElectron]);
 
   // On-screen keyboard layout
   const keyboardLayout = [
@@ -109,6 +150,35 @@ const KioskDashboard = () => {
     setError('');
   };
 
+  // Auto-reset after inactivity (for kiosk mode)
+  useEffect(() => {
+    let inactivityTimer;
+    
+    const resetInactivityTimer = () => {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        if (currentScreen !== 'welcome') {
+          resetKiosk();
+        }
+      }, 300000); // 5 minutes of inactivity
+    };
+
+    const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+    
+    events.forEach(event => {
+      document.addEventListener(event, resetInactivityTimer, true);
+    });
+
+    resetInactivityTimer();
+
+    return () => {
+      clearTimeout(inactivityTimer);
+      events.forEach(event => {
+        document.removeEventListener(event, resetInactivityTimer, true);
+      });
+    };
+  }, [currentScreen]);
+
   // Handle kiosk ID input
   const handleKioskIdSubmit = async () => {
     if (kioskId.length !== 8) {
@@ -120,7 +190,6 @@ const KioskDashboard = () => {
     setError('');
 
     try {
-      // Validate kiosk ID using public validation endpoint
       const response = await publicApiCall("/validate-kiosk-id", {
         method: "POST",
         body: JSON.stringify({
@@ -129,12 +198,9 @@ const KioskDashboard = () => {
       });
       
       console.log(`Kiosk ID validated for user: ${response.user_email}`);
-      
-      // If successful, proceed to material selection
       setCurrentScreen('selectMaterial');
       setIsSubmitting(false);
     } catch (error) {
-      // If kiosk ID is invalid, show error
       console.error('Kiosk ID validation failed:', error);
       setError('Invalid Kiosk ID. Please check your ID and try again.');
       setIsSubmitting(false);
@@ -233,13 +299,27 @@ const KioskDashboard = () => {
   );
 
   return (
-    <div className="h-screen bg-gradient-to-br from-green-400 to-blue-600 flex items-center justify-center p-2 text-black">
+    <div className={`bg-gradient-to-br from-green-400 to-blue-600 flex items-center justify-center p-2 text-black ${
+      isElectron ? 'h-screen w-screen' : 'h-screen'
+    }`}>
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl h-[95vh] flex flex-col overflow-hidden">
         
         {/* Header */}
         <div className="bg-green-600 text-white p-4 rounded-t-2xl text-center flex-shrink-0">
-          <h1 className="text-3xl font-bold">EarthWallet Kiosk</h1>
-          <p className="text-green-100 mt-1 text-lg">Recycle • Earn • Repeat</p>
+          <div className="flex justify-between items-center">
+            <div className="flex-1">
+              <h1 className="text-3xl font-bold">EarthWallet Kiosk</h1>
+              <p className="text-green-100 mt-1 text-lg">Recycle • Earn • Repeat</p>
+            </div>
+            {isElectron && (
+              <div className="text-right">
+                <div className="text-sm text-green-100">Electron Mode</div>
+                <div className="text-xs text-green-200">
+                  {new Date().toLocaleTimeString()}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Main Content */}
@@ -261,6 +341,11 @@ const KioskDashboard = () => {
               >
                 START RECYCLING
               </button>
+              {isElectron && (
+                <div className="mt-8 text-sm text-gray-500">
+                  Running in Kiosk Mode - Touch to begin
+                </div>
+              )}
             </div>
           )}
 
@@ -379,7 +464,9 @@ const KioskDashboard = () => {
                 <p className="text-lg text-blue-800">
                   <span className="font-bold">Instructions:</span> Insert items one by one into the machine.
                   <br />
-                  <span className="text-sm mt-1 block">(Press SPACEBAR to simulate item detection)</span>
+                  <span className="text-sm mt-1 block">
+                    {isElectron ? '(Hardware integration active)' : '(Press SPACEBAR to simulate item detection)'}
+                  </span>
                 </p>
               </div>
               
@@ -454,10 +541,18 @@ const KioskDashboard = () => {
 
         {/* Footer */}
         <div className="bg-gray-100 p-3 rounded-b-2xl text-center text-gray-600 flex-shrink-0">
-          <p className="text-sm">EarthWallet • Making recycling rewarding</p>
-          {currentScreen === 'counting' && (
-            <p className="text-xs mt-1">Press SPACEBAR to simulate item detection</p>
-          )}
+          <div className="flex justify-between items-center">
+            <p className="text-sm">EarthWallet • Making recycling rewarding</p>
+            <div className="text-xs text-gray-500">
+              {isElectron && (
+                <span>Kiosk Mode • </span>
+              )}
+              {currentScreen === 'counting' && !isElectron && (
+                <span>Press SPACEBAR to simulate item detection • </span>
+              )}
+              Auto-reset in 5min idle
+            </div>
+          </div>
         </div>
       </div>
     </div>

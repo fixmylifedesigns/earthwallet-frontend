@@ -19,7 +19,7 @@ const LandingPage = ({ openAuthModal, user }) => {
       <div className="flex flex-col sm:flex-row gap-4 justify-center">
         {user ? (
           <Link
-            to="/test"
+            to="/wallet"
             className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg text-lg font-semibold"
           >
             Open Dashboard
@@ -218,7 +218,7 @@ const LandingPage = ({ openAuthModal, user }) => {
             </div>
             <div>
               <h4 className="text-lg font-semibold text-white mb-4">Contact</h4>
-              <p className="text-gray-400">support@recycletek.com</p>
+              <p className="text-gray-400">contact@duranirving.com</p>
               <p className="text-gray-400">1-800-RECYCLE</p>
             </div>
           </div>

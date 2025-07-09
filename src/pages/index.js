@@ -3,6 +3,7 @@ import KioskDashboard from "./KioskDashboard";
 import ApiTestDashboard from "./ApiTestDashboard";
 import Wallet from "./Wallet";
 import LandingPage from "./LandingPage";
+import DebitcardPage from "./DebitcardPage";
 
 export {
   EarthWalletProjectPage,
@@ -10,4 +11,5 @@ export {
   ApiTestDashboard,
   Wallet,
   LandingPage,
+  DebitcardPage,
 };
