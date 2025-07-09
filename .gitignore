@@ -53,3 +53,5 @@ capacitor.config.ts
 .env.local
 .env.kiosk
 .env.wallet
+.env.production
+.env.development
