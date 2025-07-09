@@ -1,24 +1,57 @@
+# Node modules
+node_modules/
+
+# Build outputs (Vite + Electron)
+dist/
+dist-electron/
+release/
+out/
+build/
+
+# System & IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
 # Logs
-logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Capacitor native builds (if you add mobile support)
+android/
+ios/
+capacitor.config.ts
+*.keystore
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Electron builder cache
+*.exe
+*.dmg
+*.AppImage
+*.snap
+*.deb
+*.msi
+*.pkg
+*.zip
+
+# Electron builder cache
+# (where it downloads Electron + tools)
+**/.cache/
+**/.output/
+**/locales/
+**/symbols/
+**/symbols.zip
+**/app.asar
+
+# Vite cache
+.vite/
+
+# dotenv files (optional: keep only if you're not committing them)
+.env
+.env.local
+.env.kiosk
+.env.wallet
+.env.production
+.env.development
