@@ -55,3 +55,5 @@ capacitor.config.ts
 .env.wallet
 .env.production
 .env.development
+
+repomix-output.txt
