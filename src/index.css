@@ -70,3 +70,36 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Add to existing index.css */
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    overscroll-behavior: none;
+  }
+
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Mobile-friendly button sizes */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Safe area handling for devices with notches */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}

@@ -21,7 +21,9 @@ yarn-error.log*
 pnpm-debug.log*
 
 # Capacitor native builds (if you add mobile support)
+/android/
 android/
+
 ios/
 capacitor.config.ts
 *.keystore

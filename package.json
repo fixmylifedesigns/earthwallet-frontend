@@ -21,9 +21,20 @@
     "dist": "cross-env ELECTRON_BUILDER_DISABLE_NATIVE_SYMLINKS=true electron-builder --win",
     "dist:kioskd": "cross-env VITE_PRODUCT_MODE=kiosk npm run build && electron-builder --win",
     "dist:kiosk": "cross-env VITE_PRODUCT_MODE=kiosk electron-builder --win -c.extraMetadata.build.win.icon=assets/icons/kiosk.ico",
-    "dist:wallet": "cross-env VITE_PRODUCT_MODE=wallet electron-builder --win -c.extraMetadata.build.win.icon=assets/icons/wallet.ico"
+    "dist:wallet": "cross-env VITE_PRODUCT_MODE=wallet electron-builder --win -c.extraMetadata.build.win.icon=assets/icons/wallet.ico",
+    "android:build": "cross-env VITE_PRODUCT_MODE=wallet npm run build && npx cap sync android",
+    "android:dev": "cross-env VITE_PRODUCT_MODE=wallet npm run build && npx cap sync android && npx cap run android",
+    "android:open": "npx cap open android"
   },
   "dependencies": {
+    "@capacitor-firebase/app": "^6.3.1",
+    "@capacitor-firebase/authentication": "^6.3.1",
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/keyboard": "^6.0.0",
+    "@capacitor/splash-screen": "^6.0.0",
+    "@capacitor/status-bar": "^6.0.0",
     "firebase": "^11.10.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
