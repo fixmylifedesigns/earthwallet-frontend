@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const EarthWalletProjectPage = () => {
   return (
@@ -11,11 +11,14 @@ const EarthWalletProjectPage = () => {
               🌍 EarthWallet
             </h1>
             <p className="text-xl md:text-2xl font-light mb-8 max-w-4xl mx-auto leading-relaxed">
-              Revolutionary recycling rewards platform that turns your environmental impact into instant cash rewards
+              Revolutionary recycling rewards platform that turns your
+              environmental impact into instant cash rewards
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
               <div className="bg-white bg-opacity-20 backdrop-blur rounded-lg px-6 py-3">
-                <span className="text-lg font-semibold">♻️ Recycle • 💰 Earn • 🌱 Repeat</span>
+                <span className="text-lg font-semibold">
+                  ♻️ Recycle • 💰 Earn • 🌱 Repeat
+                </span>
               </div>
             </div>
           </div>
@@ -30,33 +33,50 @@ const EarthWalletProjectPage = () => {
               See EarthWallet in Action
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Watch how our innovative platform makes recycling rewarding and accessible to everyone
+              Watch how our innovative platform makes recycling rewarding and
+              accessible to everyone
             </p>
           </div>
-          
+
           {/* Video Placeholder */}
           <div className="max-w-4xl mx-auto">
             <div className="relative aspect-video bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </div>
-                  <p className="text-lg font-medium">Demo Video Coming Soon</p>
-                  <p className="text-gray-300">Experience the future of recycling</p>
-                </div>
-              </div>
               {/* YouTube embed placeholder */}
-              {/* <iframe 
+              <iframe 
                 className="w-full h-full" 
-                src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+                src="https://www.youtube.com/embed/hJZm0pdFi-c?si=86iqrui-mI_mWdW3" 
                 title="EarthWallet Demo"
                 frameBorder="0" 
                 allowFullScreen
-              ></iframe> */}
+              ></iframe>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Earth Wallet Android App and Kiosk Desktop App
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center">
+            <a
+              href="/downloads/earthwallet.apk"
+              download
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium text-center"
+            >
+              Download for EarthWallet for Android
+            </a>
+
+            <a
+              href="/downloads/earthwallet-setup.exe"
+              download
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium text-center"
+            >
+              Download for Eathwallet Kiosk Windows
+            </a>
           </div>
         </div>
       </section>
@@ -71,25 +91,47 @@ const EarthWalletProjectPage = () => {
               </h2>
               <div className="space-y-4 text-lg text-gray-700">
                 <p>
-                  Our cutting-edge kiosk application, built with <strong>React.js</strong> and packaged using <strong>Electron</strong>, 
-                  transforms any computer into a powerful recycling station.
+                  Our cutting-edge kiosk application, built with{" "}
+                  <strong>React.js</strong> and packaged using{" "}
+                  <strong>Electron</strong>, transforms any computer into a
+                  powerful recycling station.
                 </p>
                 <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-green-500">
-                  <h3 className="font-semibold text-gray-900 mb-2">🔑 Kiosk ID Login</h3>
-                  <p>Users simply enter their unique 8-character Kiosk ID from their EarthWallet to get started</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    🔑 Kiosk ID Login
+                  </h3>
+                  <p>
+                    Users simply enter their unique 8-character Kiosk ID from
+                    their EarthWallet to get started
+                  </p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-500">
-                  <h3 className="font-semibold text-gray-900 mb-2">💰 Instant Payments</h3>
-                  <p>Deposit bottles and cans to receive immediate payments directly to your digital wallet</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    💰 Instant Payments
+                  </h3>
+                  <p>
+                    Deposit bottles and cans to receive immediate payments
+                    directly to your digital wallet
+                  </p>
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-purple-500">
-                  <h3 className="font-semibold text-gray-900 mb-2">🚀 Future Technology</h3>
-                  <p>Currently simulated with spacebar input, we're developing integration with smart hardware featuring:</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    🚀 Future Technology
+                  </h3>
+                  <p>
+                    Currently simulated with spacebar input, we're developing
+                    integration with smart hardware featuring:
+                  </p>
                   <ul className="list-disc list-inside mt-2 space-y-1 text-gray-600">
                     <li>Precision weight mechanisms</li>
-                    <li>AI-powered image recognition for real-time bottle classification</li>
+                    <li>
+                      AI-powered image recognition for real-time bottle
+                      classification
+                    </li>
                     <li>Barcode scanning for material identification</li>
-                    <li>Custom device integration with dedicated counting software</li>
+                    <li>
+                      Custom device integration with dedicated counting software
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -156,24 +198,48 @@ const EarthWalletProjectPage = () => {
               </h2>
               <div className="space-y-4 text-lg text-gray-700">
                 <p>
-                  Built with <strong>React.js</strong> and deployable to mobile devices using <strong>Capacitor</strong>, 
-                  our wallet app puts financial control in users' hands.
+                  Built with <strong>React.js</strong> and deployable to mobile
+                  devices using <strong>Capacitor</strong>, our wallet app puts
+                  financial control in users' hands.
                 </p>
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-green-500">
-                  <h3 className="font-semibold text-gray-900 mb-2">💸 Seamless Withdrawals</h3>
-                  <p>Powered by <strong>Stripe Payouts</strong>, users can transfer earnings directly to their bank accounts with just a few taps</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    💸 Seamless Withdrawals
+                  </h3>
+                  <p>
+                    Powered by <strong>Stripe Payouts</strong>, users can
+                    transfer earnings directly to their bank accounts with just
+                    a few taps
+                  </p>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-blue-500">
-                  <h3 className="font-semibold text-gray-900 mb-2">📊 Transaction Transparency</h3>
-                  <p>Complete visibility into all deposits and withdrawals with detailed transaction histories and real-time balance updates</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    📊 Transaction Transparency
+                  </h3>
+                  <p>
+                    Complete visibility into all deposits and withdrawals with
+                    detailed transaction histories and real-time balance updates
+                  </p>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-purple-500">
-                  <h3 className="font-semibold text-gray-900 mb-2">🏦 Future Banking Integration</h3>
-                  <p>Planned integration with <strong>Stripe Connect</strong> to allow users to link their own bank accounts through a secure portal</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    🏦 Future Banking Integration
+                  </h3>
+                  <p>
+                    Planned integration with <strong>Stripe Connect</strong> to
+                    allow users to link their own bank accounts through a secure
+                    portal
+                  </p>
                 </div>
                 <div className="bg-gray-50 p-6 rounded-lg border-l-4 border-orange-500">
-                  <h3 className="font-semibold text-gray-900 mb-2">📱 Multi-Platform Deployment</h3>
-                  <p>Single React.js codebase deployed to <strong>Android</strong> and <strong>iOS</strong> using Capacitor for native app experiences</p>
+                  <h3 className="font-semibold text-gray-900 mb-2">
+                    📱 Multi-Platform Deployment
+                  </h3>
+                  <p>
+                    Single React.js codebase deployed to{" "}
+                    <strong>Android</strong> and <strong>iOS</strong> using
+                    Capacitor for native app experiences
+                  </p>
                 </div>
               </div>
             </div>
@@ -189,62 +255,100 @@ const EarthWalletProjectPage = () => {
               ⚙️ Robust Backend Infrastructure
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Enterprise-grade API built with Flask, secured by Firebase, and powered by Stripe
+              Enterprise-grade API built with Flask, secured by Firebase, and
+              powered by Stripe
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-xl shadow-lg border-t-4 border-red-500">
               <div className="text-3xl mb-4">🔐</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Firebase Authentication</h3>
-              <p className="text-gray-600 mb-4">Secure user authentication with Firebase ID tokens verified server-side for maximum security</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Firebase Authentication
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Secure user authentication with Firebase ID tokens verified
+                server-side for maximum security
+              </p>
               <div className="text-sm text-gray-500">
-                <span className="font-medium">Features:</span> Token validation, user management, session handling
+                <span className="font-medium">Features:</span> Token validation,
+                user management, session handling
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-lg border-t-4 border-blue-500">
               <div className="text-3xl mb-4">💰</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Wallet Management</h3>
-              <p className="text-gray-600 mb-4">Complete wallet lifecycle management from user creation to balance tracking and transaction history</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Wallet Management
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Complete wallet lifecycle management from user creation to
+                balance tracking and transaction history
+              </p>
               <div className="text-sm text-gray-500">
-                <span className="font-medium">Endpoints:</span> /wallet, /transactions, user account management
+                <span className="font-medium">Endpoints:</span> /wallet,
+                /transactions, user account management
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-lg border-t-4 border-green-500">
               <div className="text-3xl mb-4">📦</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Deposit Processing</h3>
-              <p className="text-gray-600 mb-4">Smart deposit endpoint that calculates payouts based on material type and quantity with instant balance updates</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Deposit Processing
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Smart deposit endpoint that calculates payouts based on material
+                type and quantity with instant balance updates
+              </p>
               <div className="text-sm text-gray-500">
-                <span className="font-medium">Materials:</span> Plastic (5¢), Aluminum (10¢) per unit
+                <span className="font-medium">Materials:</span> Plastic (5¢),
+                Aluminum (10¢) per unit
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-lg border-t-4 border-purple-500">
               <div className="text-3xl mb-4">💸</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Stripe Withdrawals</h3>
-              <p className="text-gray-600 mb-4">Seamless integration with Stripe Payouts for direct bank transfers, with automatic balance deduction and transaction logging</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Stripe Withdrawals
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Seamless integration with Stripe Payouts for direct bank
+                transfers, with automatic balance deduction and transaction
+                logging
+              </p>
               <div className="text-sm text-gray-500">
-                <span className="font-medium">Process:</span> Balance verification → Stripe payout → Account update
+                <span className="font-medium">Process:</span> Balance
+                verification → Stripe payout → Account update
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-lg border-t-4 border-yellow-500">
               <div className="text-3xl mb-4">🏪</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Kiosk Integration</h3>
-              <p className="text-gray-600 mb-4">Specialized endpoints for kiosk operations with unique ID-based authentication for secure, app-free transactions</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Kiosk Integration
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Specialized endpoints for kiosk operations with unique ID-based
+                authentication for secure, app-free transactions
+              </p>
               <div className="text-sm text-gray-500">
-                <span className="font-medium">Features:</span> Kiosk ID validation, touch-optimized responses
+                <span className="font-medium">Features:</span> Kiosk ID
+                validation, touch-optimized responses
               </div>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-lg border-t-4 border-indigo-500">
               <div className="text-3xl mb-4">🛡️</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Security & Reliability</h3>
-              <p className="text-gray-600 mb-4">Production-ready with rate limiting, comprehensive error handling, and secure token management</p>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">
+                Security & Reliability
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Production-ready with rate limiting, comprehensive error
+                handling, and secure token management
+              </p>
               <div className="text-sm text-gray-500">
-                <span className="font-medium">Stack:</span> Flask, PostgreSQL, Redis, Railway deployment
+                <span className="font-medium">Stack:</span> Flask, PostgreSQL,
+                Redis, Railway deployment
               </div>
             </div>
           </div>
@@ -259,16 +363,20 @@ const EarthWalletProjectPage = () => {
               🚀 Coming Soon
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Exciting features in development to enhance the EarthWallet ecosystem
+              Exciting features in development to enhance the EarthWallet
+              ecosystem
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-6 rounded-xl text-white">
               <div className="text-4xl mb-4">💳</div>
-              <h3 className="text-xl font-bold mb-3">EarthWallet Debit Cards</h3>
+              <h3 className="text-xl font-bold mb-3">
+                EarthWallet Debit Cards
+              </h3>
               <p className="text-purple-100 mb-4">
-                Instant access to your earnings with Stripe-powered debit cards for immediate spending
+                Instant access to your earnings with Stripe-powered debit cards
+                for immediate spending
               </p>
               <div className="text-sm text-purple-200">
                 Order physical cards directly from the app
@@ -279,7 +387,8 @@ const EarthWalletProjectPage = () => {
               <div className="text-4xl mb-4">🗺️</div>
               <h3 className="text-xl font-bold mb-3">Kiosk Location Map</h3>
               <p className="text-blue-100 mb-4">
-                Interactive maps in both web and mobile apps to help users find the nearest recycling kiosks
+                Interactive maps in both web and mobile apps to help users find
+                the nearest recycling kiosks
               </p>
               <div className="text-sm text-blue-200">
                 Real-time availability and directions
@@ -290,7 +399,8 @@ const EarthWalletProjectPage = () => {
               <div className="text-4xl mb-4">🏧</div>
               <h3 className="text-xl font-bold mb-3">Cash Withdrawal ATMs</h3>
               <p className="text-green-100 mb-4">
-                React.js and Electron-powered ATM software for instant cash withdrawals from EarthWallet balances
+                React.js and Electron-powered ATM software for instant cash
+                withdrawals from EarthWallet balances
               </p>
               <div className="text-sm text-green-200">
                 Physical cash access to digital earnings
@@ -307,7 +417,8 @@ const EarthWalletProjectPage = () => {
             Join the Recycling Revolution
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            EarthWallet is transforming how we think about recycling, making environmental responsibility both rewarding and accessible
+            EarthWallet is transforming how we think about recycling, making
+            environmental responsibility both rewarding and accessible
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
             <button className="bg-white text-green-600 px-8 py-3 rounded-lg font-bold text-lg hover:bg-gray-100 transition-colors">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Capacitor } from '@capacitor/core';
 
 const WalletPage = ({ user }) => {
   // State for wallet data
@@ -14,7 +15,7 @@ const WalletPage = ({ user }) => {
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
   const [withdrawAllSelected, setWithdrawAllSelected] = useState(false);
   const [showKioskId, setShowKioskId] = useState(false);
-
+const isMobile = Capacitor.isNativePlatform();
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -186,7 +187,7 @@ const WalletPage = ({ user }) => {
   const hasPrevPage = currentPage > 1;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className={`min-h-screen bg-gray-50 p-6 ${isMobile ? 'safe-area-top safe-area-bottom' : ''}`}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">

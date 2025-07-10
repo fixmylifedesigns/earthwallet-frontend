@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import { MemoryRouter, BrowserRouter, Routes, Route } from "react-router-dom";
+import { Capacitor } from "@capacitor/core";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -19,6 +19,7 @@ import {
   EarthWalletProjectPage,
   DebitcardPage,
 } from "./pages/index";
+import WalletApp from "./WalletApp"; // Import the new WalletApp component
 import "./index.css";
 import ApiTestDashboard from "./pages/ApiTestDashboard";
 
@@ -40,19 +41,20 @@ const googleProvider = new GoogleAuthProvider();
 // Get product mode from environment or window API
 const getProductMode = () => {
   // Check if we're in electron
-  if (typeof window !== 'undefined' && window.electronAPI) {
+  if (typeof window !== "undefined" && window.electronAPI) {
     return window.electronAPI.getProductMode();
   }
   // Check Vite environment variable
-  return import.meta.env.VITE_PRODUCT_MODE || 'web';
+  return import.meta.env.VITE_PRODUCT_MODE || "web";
 };
 
 // Get app configuration from environment
 const appConfig = {
-  name: import.meta.env.VITE_APP_NAME || 'EarthWallet',
-  description: import.meta.env.VITE_APP_DESCRIPTION || 'Turn Recycling Into Real Rewards',
-  supportEmail: import.meta.env.VITE_SUPPORT_EMAIL || 'contact@duranirving.com',
-  supportPhone: import.meta.env.VITE_SUPPORT_PHONE || '1-800-RECYCLE',
+  name: import.meta.env.VITE_APP_NAME || "EarthWallet",
+  description:
+    import.meta.env.VITE_APP_DESCRIPTION || "Turn Recycling Into Real Rewards",
+  supportEmail: import.meta.env.VITE_SUPPORT_EMAIL || "contact@duranirving.com",
+  supportPhone: import.meta.env.VITE_SUPPORT_PHONE || "1-800-RECYCLE",
 };
 
 const App = () => {
@@ -63,20 +65,23 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  
+
+  const Router = Capacitor.isNativePlatform() ? MemoryRouter : BrowserRouter;
   // Get the current product mode
   const productMode = getProductMode();
-  console.log('Current product mode:', productMode);
+  console.log("Current product mode:", productMode);
 
-  // Listen for authentication state changes
+  // Listen for authentication state changes (only for non-wallet modes)
   useEffect(() => {
+    if (productMode === "wallet") return; // WalletApp handles its own auth
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
     return () => unsubscribe();
-  }, []);
+  }, [productMode]);
 
-  // Authentication handlers
+  // Authentication handlers (only for non-wallet modes)
   const handleAuth = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -129,7 +134,7 @@ const App = () => {
   // Render different app structures based on product mode
   const renderApp = () => {
     switch (productMode) {
-      case 'kiosk':
+      case "kiosk":
         // Kiosk mode - only render the kiosk dashboard, no navigation
         return (
           <div className="w-full h-screen">
@@ -137,152 +142,112 @@ const App = () => {
           </div>
         );
 
-      case 'wallet':
-        // Wallet mode - minimal navigation, focused on wallet functionality
-        return (
-          <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 w-full">
-            {/* Minimal Navigation for Wallet App */}
-            <nav className="bg-white shadow-lg">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <h1 className="text-2xl font-bold text-green-600">
-                        {appConfig.name}
-                      </h1>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    {user ? (
-                      <div className="flex items-center space-x-4">
-                        <span className="text-gray-700">Welcome, {user.email}</span>
-                        <button
-                          onClick={handleSignOut}
-                          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium"
-                        >
-                          Sign Out
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        <button
-                          onClick={() => openAuthModal("login")}
-                          className="text-green-600 hover:text-green-700 px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                          Log In
-                        </button>
-                        <button
-                          onClick={() => openAuthModal("signup")}
-                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-                        >
-                          Sign Up
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </nav>
-
-            <Router>
-              <Routes>
-                <Route path="/" element={<Wallet user={user} />} />
-                <Route path="/wallet" element={<Wallet user={user} />} />
-              </Routes>
-            </Router>
-
-            {/* Auth Modal */}
-            {showAuthModal && renderAuthModal()}
-          </div>
-        );
+      case "wallet":
+        // Wallet mode - render the standalone WalletApp component
+        return <WalletApp />;
 
       default:
         // Web mode - full navigation and all routes
         return (
-          <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 w-full">
-            {/* Full Navigation */}
-            <nav className="bg-white shadow-lg">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16">
-                  <div className="flex items-center">
-                    <div className="flex-shrink-0">
-                      <h1 className="text-2xl font-bold text-green-600">
-                        {appConfig.name}
-                      </h1>
-                    </div>
-                    <div className="hidden md:block">
-                      <div className="ml-10 flex items-baseline space-x-4">
-                        <a
-                          href="#features"
-                          className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                          Features
-                        </a>
-                        <a
-                          href="#how-it-works"
-                          className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                          How It Works
-                        </a>
-                        <a
-                          href="#contact"
-                          className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                          Contact
-                        </a>
+          <Router>
+            <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 w-full">
+              {/* Full Navigation */}
+              <nav className="bg-white shadow-lg">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="flex justify-between h-16">
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0">
+                        <h1 className="text-2xl font-bold text-green-600">
+                          {appConfig.name}
+                        </h1>
+                      </div>
+                      <div className="hidden md:block">
+                        <div className="ml-10 flex items-baseline space-x-4">
+                          <a
+                            href="#features"
+                            className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
+                          >
+                            Features
+                          </a>
+                          <a
+                            href="#how-it-works"
+                            className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
+                          >
+                            How It Works
+                          </a>
+                          <a
+                            href="#contact"
+                            className="text-gray-600 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium"
+                          >
+                            Contact
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    {user ? (
-                      <div className="flex items-center space-x-4">
-                        <span className="text-gray-700">Welcome, {user.email}</span>
-                        <button
-                          onClick={handleSignOut}
-                          className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium"
-                        >
-                          Sign Out
-                        </button>
-                      </div>
-                    ) : (
-                      <>
-                        <button
-                          onClick={() => openAuthModal("login")}
-                          className="text-green-600 hover:text-green-700 px-3 py-2 rounded-md text-sm font-medium"
-                        >
-                          Log In
-                        </button>
-                        <button
-                          onClick={() => openAuthModal("signup")}
-                          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium"
-                        >
-                          Sign Up
-                        </button>
-                      </>
-                    )}
+                    <div className="flex items-center space-x-4">
+                      {user ? (
+                        <div className="flex items-center space-x-4">
+                          <span className="text-gray-700">
+                            Welcome, {user.email}
+                          </span>
+                          <button
+                            onClick={handleSignOut}
+                            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+                          >
+                            Sign Out
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => openAuthModal("login")}
+                            className="text-green-600 hover:text-green-700 px-3 py-2 rounded-md text-sm font-medium"
+                          >
+                            Log In
+                          </button>
+                          <button
+                            onClick={() => openAuthModal("signup")}
+                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+                          >
+                            Sign Up
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </nav>
-
-            <Router>
+              </nav>
               <Routes>
                 <Route
                   path="/"
-                  element={<LandingPage openAuthModal={openAuthModal} user={user} appConfig={appConfig} />}
+                  element={
+                    <LandingPage
+                      openAuthModal={openAuthModal}
+                      user={user}
+                      appConfig={appConfig}
+                    />
+                  }
                 />
                 <Route path="/kiosk" element={<Kiosk />} />
-                <Route path="/test" element={<ApiTestDashboard user={user} />} />
+                <Route
+                  path="/test"
+                  element={<ApiTestDashboard user={user} />}
+                />
                 <Route path="/wallet" element={<Wallet user={user} />} />
-                <Route path="/project-page" element={<EarthWalletProjectPage />} />
-                <Route path="/debitcard" element={<DebitcardPage user={user}/>} />
-
+                <Route
+                  path="/project-page"
+                  element={<EarthWalletProjectPage />}
+                />
+                <Route
+                  path="/debitcard"
+                  element={<DebitcardPage user={user} />}
+                />
               </Routes>
-            </Router>
 
-            {/* Auth Modal */}
-            {showAuthModal && renderAuthModal()}
-          </div>
+              {/* Auth Modal */}
+              {showAuthModal && renderAuthModal()}
+            </div>
+          </Router>
         );
     }
   };
