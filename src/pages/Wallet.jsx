@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Capacitor } from '@capacitor/core';
+import { Capacitor } from "@capacitor/core";
+import QRCode from "qrcode";
 
 const WalletPage = ({ user }) => {
   // State for wallet data
@@ -8,6 +9,7 @@ const WalletPage = ({ user }) => {
   const [deposits, setDeposits] = useState([]);
   const [withdrawals, setWithdrawals] = useState([]);
   const [userKioskId, setUserKioskId] = useState(null);
+  const [qrcode, setQRCode] = useState(null);
 
   // UI state
   const [activeTab, setActiveTab] = useState("deposits");
@@ -15,7 +17,7 @@ const WalletPage = ({ user }) => {
   const [withdrawalAmount, setWithdrawalAmount] = useState("");
   const [withdrawAllSelected, setWithdrawAllSelected] = useState(false);
   const [showKioskId, setShowKioskId] = useState(false);
-const isMobile = Capacitor.isNativePlatform();
+  const isMobile = Capacitor.isNativePlatform();
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -157,6 +159,21 @@ const isMobile = Capacitor.isNativePlatform();
     );
   };
 
+  const handleQRGeneration = async (state) => {
+    if (state === "Show") {
+      QRCode.toDataURL(userKioskId, { width:200, errorCorrectionLevel: "H" })
+        .then((url) => {
+          setQRCode(url);
+        })
+        .catch((err) => {
+          console.error("QR Code generation error:", err);
+          setQRCode(null);
+        });
+    } else {
+      setQRCode(null);
+    }
+  };
+
   // Load initial data
   useEffect(() => {
     if (user === undefined) return;
@@ -187,7 +204,11 @@ const isMobile = Capacitor.isNativePlatform();
   const hasPrevPage = currentPage > 1;
 
   return (
-    <div className={`min-h-screen bg-gray-50 p-6 ${isMobile ? 'safe-area-top safe-area-bottom' : ''}`}>
+    <div
+      className={`min-h-screen bg-gray-50 p-6 ${
+        isMobile ? "safe-area-top safe-area-bottom" : ""
+      }`}
+    >
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -229,6 +250,12 @@ const isMobile = Capacitor.isNativePlatform();
                   >
                     {showKioskId ? "Hide" : "Show"} ID
                   </button>
+                  <button
+                    onClick={() => handleQRGeneration(!qrcode ? "Show" : "Hide")}
+                    className="text-blue-600 hover:text-blue-800 text-sm font-medium m-2 "
+                  >
+                    {qrcode ? "Hide" : "Show"} QR Code
+                  </button>
                 </div>
                 {showKioskId && userKioskId && (
                   <div className="mt-2 p-2 bg-white border border-blue-200 rounded font-mono text-lg font-bold text-center text-blue-900">
@@ -237,6 +264,13 @@ const isMobile = Capacitor.isNativePlatform();
                 )}
               </div>
             </div>
+            {qrcode && (
+              <img
+                src={qrcode}
+                alt="QR Code"
+                className="w-62 h-62 rounded-lg"
+              />
+            )}
 
             <div className="flex flex-col sm:flex-row gap-3">
               <button
