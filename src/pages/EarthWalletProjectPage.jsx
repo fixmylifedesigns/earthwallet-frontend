@@ -1,4 +1,6 @@
 import React from "react";
+import ModelCanvas from "../components/ModelCanvas";
+import BottleDetector from "../components/BottleDetector";
 
 const EarthWalletProjectPage = () => {
   return (
@@ -24,7 +26,6 @@ const EarthWalletProjectPage = () => {
           </div>
         </div>
       </section>
-
       {/* Demo Video Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -42,18 +43,17 @@ const EarthWalletProjectPage = () => {
           <div className="max-w-4xl mx-auto">
             <div className="relative aspect-video bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
               {/* YouTube embed placeholder */}
-              <iframe 
-                className="w-full h-full" 
-                src="https://www.youtube.com/embed/hJZm0pdFi-c?si=86iqrui-mI_mWdW3" 
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/hJZm0pdFi-c?si=86iqrui-mI_mWdW3"
                 title="EarthWallet Demo"
-                frameBorder="0" 
+                frameBorder="0"
                 allowFullScreen
               ></iframe>
             </div>
           </div>
         </div>
       </section>
-
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-12">
@@ -80,7 +80,21 @@ const EarthWalletProjectPage = () => {
           </div>
         </div>
       </section>
-
+      <section className="bg-gray-100">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                3D Render of Kiosk
+              </h2>{" "}
+            </div>{" "}
+          </div>
+          <ModelCanvas />
+        </div>
+      </section>{" "}
+      <section>
+        <BottleDetector />
+      </section>
       {/* Kiosk Desktop App Section */}
       <section className="py-16 bg-gray-100">
         <div className="max-w-6xl mx-auto px-6">
@@ -163,7 +177,6 @@ const EarthWalletProjectPage = () => {
           </div>
         </div>
       </section>
-
       {/* Wallet App Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -246,7 +259,6 @@ const EarthWalletProjectPage = () => {
           </div>
         </div>
       </section>
-
       {/* Backend Section */}
       <section className="py-16 bg-gray-100">
         <div className="max-w-6xl mx-auto px-6">
@@ -354,7 +366,6 @@ const EarthWalletProjectPage = () => {
           </div>
         </div>
       </section>
-
       {/* Future Features Section */}
       <section className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6">
@@ -409,7 +420,6 @@ const EarthWalletProjectPage = () => {
           </div>
         </div>
       </section>
-
       {/* Call to Action */}
       <section className="py-16 bg-gradient-to-r from-green-600 to-blue-600 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
