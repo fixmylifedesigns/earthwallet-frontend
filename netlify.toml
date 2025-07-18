@@ -5,10 +5,3 @@
 [build.environment]
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
-
-# Cache node_modules for faster builds
-[[plugins]]
-  package = "netlify-plugin-cache"
-
-  [plugins.inputs]
-    paths = [ "node_modules", ".npm" ]
